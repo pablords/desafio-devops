@@ -16,7 +16,8 @@
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - [Vagrant](https://www.vagrantup.com/)
-- [Docker](https://www.docker.com/)
+- [Vagrant](https://www.vagrantup.com/)
+- [Ansible](https://www.ansible.com/)
 
 
 ## 💻  Como executar
