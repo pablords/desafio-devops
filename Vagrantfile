@@ -11,6 +11,6 @@ Vagrant.configure("2") do |config|
      docker-compose -v
      cd ~ && git clone https://github.com/pablords/desafio-devops.git
      ls && cd desafio-devops
-     docker-compose up
+     docker-compose up -d
    SHELL
 end
