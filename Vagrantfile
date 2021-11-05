@@ -1,12 +1,19 @@
 Vagrant.configure("2") do |config|
 
+
   config.vm.box = "ubuntu/bionic64"
   config.vm.network "forwarded_port", guest: 8000, host: 8000
-  config.vm.provision :docker
-  config.vm.provision :docker_compose
+  #config.vm.provision :docker
+  #config.vm.provision :docker_compose
+  config.ssh.insert_key = false
 
   config.vm.provider "virtualbox" do |v|
     v.name = "desafio-devops-pablo"
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.verbose = "v"
+    ansible.playbook = "playbook.yml"
   end
 
   config.vm.provision "shell", inline: <<-SHELL
