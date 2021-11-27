@@ -43,7 +43,7 @@
     - docker
 
 # sudo usermod -aG docker ubuntu
-- name: Add remote "ubuntu" user to "docker" group
+- name: Add remote "vagrant" user to "docker" group
   user:
     name: "{{ remote_user }}"
     group: "{{ docker_group }}"

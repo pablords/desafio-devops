@@ -7,8 +7,8 @@ Vagrant.configure("2") do |config|
     machine.vm.network "private_network", ip: "172.17.177.11"
     config.vm.network "forwarded_port", guest: 8000, host: 8000
     machine.vm.provider "virtualbox" do |v|
-      v.memory = 3048
-      v.cpus = 2
+      v.memory = 4048
+      v.cpus = 4
       v.name = "controller"
     end
     machine.vm.provision :ansible_local do |ansible|
@@ -18,11 +18,6 @@ Vagrant.configure("2") do |config|
       ansible.install           = true
       ansible.limit             = "all" # or only "nodes" group, etc.
       ansible.inventory_path    = "inventory"
-    end
-    machine.trigger.after :up do |trigger|
-      trigger.name = "Iniciar aplicacao"
-      trigger.info = "Aplicacao iniciada com sucesso!!!"
-      machine.vm.provision "shell", path: "app/start.sh"
     end
   end
 

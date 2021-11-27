@@ -15,19 +15,17 @@
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-- [Docker](https://docs.docker.com/)
 - [Vagrant](https://www.vagrantup.com/)
 - [Ansible](https://www.ansible.com/)
-
+- [Docker](https://docs.docker.com/)
 
 ## 💻  Como executar
 
 - Clone o repositório.
-- na raiz do projeto digite `vagrant up` e aguarde a maquina virtual subir clonar o repositorio e subir os containers.
-- em caso de erro na instalação do docker-compose, instale o plugin digitando `vagrant plugin install vagrant-docker-compose`.
+- na raiz do projeto digite `vagrant up` e aguarde a maquina virtual subir Iniciar a aplicacao Wordpress.
 
 
 Agora você pode acessar [`http://localhost:8000`](http://localhost:8000) do seu navegador.
 
-- Para verificar o status dos containers, acesse a vm digitando `vagrant ssh` e logo depois `docker ps`.
+- Para verificar o status dos containers, acesse a vm digitando `vagrant ssh controller` e logo depois `docker ps`.
 
