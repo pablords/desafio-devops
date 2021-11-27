@@ -1,24 +1,31 @@
 Vagrant.configure("2") do |config|
-
-
   config.vm.box = "ubuntu/bionic64"
-  config.vm.network "forwarded_port", guest: 8000, host: 8000
-  config.ssh.insert_key = false
 
-  config.vm.provider "virtualbox" do |v|
-    v.name = "desafio-devops-pablo"
+  config.vm.define 'controller' do |machine|
+    machine.vm.synced_folder "./app", "/home/vagrant/app"
+    machine.vm.synced_folder "./ansible", "/home/vagrant/ansible"
+    machine.vm.network "private_network", ip: "172.17.177.11"
+    config.vm.network "forwarded_port", guest: 8000, host: 8000
+    machine.vm.provider "virtualbox" do |v|
+      v.memory = 3048
+      v.cpus = 2
+      v.name = "controller"
+    end
+    machine.vm.provision :ansible_local do |ansible|
+      ansible.playbook          = "playbook.yml"
+      ansible.provisioning_path = "/home/vagrant/ansible"
+      ansible.verbose           = true
+      ansible.install           = true
+      ansible.limit             = "all" # or only "nodes" group, etc.
+      ansible.inventory_path    = "inventory"
+    end
+    machine.trigger.after :up do |trigger|
+      trigger.name = "Iniciar aplicacao"
+      trigger.info = "Aplicacao iniciada com sucesso!!!"
+      machine.vm.provision "shell", path: "app/start.sh"
+    end
   end
 
-  config.vm.provision "ansible" do |ansible|
-    ansible.verbose = "v"
-    ansible.playbook = "playbook.yml"
-  end
-
-  config.vm.provision "shell", inline: <<-SHELL
-     docker -v
-     docker-compose -v
-     cd ~ && git clone https://github.com/pablords/desafio-devops.git
-     ls && cd desafio-devops
-     docker-compose up -d
-  SHELL
 end
+
+
